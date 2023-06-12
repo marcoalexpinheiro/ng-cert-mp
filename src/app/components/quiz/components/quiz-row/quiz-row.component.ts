@@ -15,7 +15,7 @@ export class QuizRowComponent implements OnInit {
 
   constructor() {}
 
-  public checkAnswers = true;
+  public checkAnswers = false;
 
   ngOnInit() {}
 

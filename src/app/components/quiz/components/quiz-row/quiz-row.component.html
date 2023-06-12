@@ -5,21 +5,19 @@
       <mat-button-toggle
         *ngFor="let option of question.incorrect_answers"
         (click)="setNewAnswer(option)"
-        [class]="
-          question.correct_answer === question.given_answer &&
-          status === checkAnswers
-            ? 'correct'
-            : ''
-        "
-        [class]="
-          question.correct_answer !== question.given_answer &&
-          status === checkAnswers
-            ? 'incorrect'
-            : ''
-        "
+        [ngClass]="{
+          correct:
+            option === question.given_answer &&
+            question.correct_answer === question.given_answer &&
+            checkAnswers,
+          incorrect:
+            option === question.given_answer &&
+            question.correct_answer !== question.given_answer &&
+            checkAnswers
+        }"
         value="{{ option }}"
-        >{{ option }}</mat-button-toggle
-      >
+        >{{ option }}
+      </mat-button-toggle>
     </mat-button-toggle-group>
   </mat-card-content>
 </mat-card>

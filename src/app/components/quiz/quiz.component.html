@@ -1,10 +1,4 @@
-<mat-card>
-  <mat-card-content>
-    <h4 class="example-h2">Titulo da Pergunta</h4>
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-      <mat-button-toggle value="bold">Bold</mat-button-toggle>
-      <mat-button-toggle value="italic">Italic</mat-button-toggle>
-      <mat-button-toggle value="underline">Underline</mat-button-toggle>
-    </mat-button-toggle-group>
-  </mat-card-content>
-</mat-card>
+<app-quiz-row
+  [question]="{}"
+  (answer)="setAnswer(answer, $event)"
+></app-quiz-row>

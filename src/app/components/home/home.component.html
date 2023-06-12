@@ -13,72 +13,19 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <p>Selected value: {{ selectedValue }}</p>
   </mat-card-content>
 </mat-card>
 <!-- /Material Select -->
 
-<!-- Material Spinner -->
-<mat-card>
-  <mat-card-content>
-    <h2 class="example-h2">Progress spinner configuration</h2>
-
-    <section class="example-section">
-      <label class="example-margin">Color:</label>
-      <mat-radio-group [(ngModel)]="color">
-        <mat-radio-button class="example-margin" value="primary">
-          Primary
-        </mat-radio-button>
-        <mat-radio-button class="example-margin" value="accent">
-          Accent
-        </mat-radio-button>
-        <mat-radio-button class="example-margin" value="warn">
-          Warn
-        </mat-radio-button>
-      </mat-radio-group>
-    </section>
-
-    <section class="example-section" *ngIf="mode === 'determinate'">
-      <label class="example-margin">Progress:</label>
-      <mat-slider class="example-margin" [(ngModel)]="value"></mat-slider>
-    </section>
-  </mat-card-content>
-</mat-card>
-<mat-card>
-  <mat-card-content>
-    <h2 class="example-h2">Result</h2>
-
-    <mat-progress-spinner
-      class="example-margin"
-      [color]="color"
-      [mode]="mode"
-      [value]="value"
-    >
-    </mat-progress-spinner>
-  </mat-card-content>
-</mat-card>
-<!-- /Material Spinner -->
-
 <!-- Material Progress Bar -->
 <mat-card>
   <mat-card-content>
-    <h2 class="example-h2">Material Progress Bar</h2>
     <label>
       Indeterminate progress-bar
       <mat-progress-bar
         class="app-progress"
         mode="indeterminate"
         aria-label="Indeterminate progress-bar example"
-      ></mat-progress-bar>
-    </label>
-    <label>
-      Determinate progress bar - {{ progress }}%
-      <mat-progress-bar
-        class="app-progress"
-        color="accent"
-        mode="determinate"
-        [value]="progress"
-        aria-label="Determinate progress-bar example"
       ></mat-progress-bar>
     </label>
   </mat-card-content>

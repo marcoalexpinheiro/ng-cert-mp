@@ -12,6 +12,10 @@ import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
+import { QuizRowComponent } from './components/quiz/components/quiz-row/quiz-row.component';
+import { SharedService } from './services/shared.service';
+import { AppService } from './services/app.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -20,6 +24,7 @@ import { HeaderComponent } from './components/header/header.component';
     AppMaterialModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
   ],
   declarations: [
     AppComponent,
@@ -28,8 +33,9 @@ import { HeaderComponent } from './components/header/header.component';
     HomeComponent,
     FooterComponent,
     HeaderComponent,
+    QuizRowComponent,
   ],
-  entryComponents: [DialogContentComponent],
+  providers: [SharedService, AppService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

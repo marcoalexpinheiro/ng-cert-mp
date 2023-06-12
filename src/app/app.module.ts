@@ -3,7 +3,7 @@ import 'hammerjs';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppMaterialModule } from './app.material.module';
 import { AppComponent, DialogContentComponent } from './app.component';
@@ -27,6 +27,7 @@ import { CategoriesStore } from './stores/categories.store';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     AppComponent,
@@ -35,9 +36,15 @@ import { CategoriesStore } from './stores/categories.store';
     HomeComponent,
     FooterComponent,
     HeaderComponent,
-    QuizRowComponent,
+    QuizRowComponent
   ],
-  providers: [SharedService, AppService, QuestionsStore, CategoriesStore],
+  providers: [
+    FormBuilder,
+    SharedService,
+    AppService,
+    QuestionsStore,
+    CategoriesStore,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

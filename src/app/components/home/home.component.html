@@ -1,18 +1,34 @@
 <!-- Material Select -->
 <mat-card>
   <mat-card-content>
-    <h2 class="example-h2">Category</h2>
-    <mat-form-field>
-      <mat-select
-        id="categorySelect"
-        placeholder="Favorite category game"
-        name="cat"
-      >
-        <mat-option *ngFor="let cat of cats$ | async" [value]="cat.id">
-          {{ cat.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <h2 class="example-h2">QUIZ MAKER</h2>
+    <form [formGroup]="setupQuizForm">
+      <mat-form-field>
+        <mat-select
+          id="categorySelect"
+          placeholder="Favorite category game"
+          name="cat"
+          [formControlName]="'category'"
+        >
+          <mat-option *ngFor="let cat of cats$ | async" [value]="cat.id">
+            {{ cat.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select
+          id="difficultySelect"
+          placeholder="Dificult"
+          name="difficultySelect"
+          [formControlName]="'difficulty'"
+        >
+          <mat-option [value]="EnumDifficulty.EASY"> Easy </mat-option>
+          <mat-option [value]="EnumDifficulty.MID"> Medium </mat-option>
+          <mat-option [value]="EnumDifficulty.EXPERT"> Hard </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
   </mat-card-content>
 </mat-card>
 <!-- /Material Select -->

@@ -20,10 +20,6 @@ export class AppService {
 
     return this._http
       .get<any>(API_ENDPOINT, { params })
-      .pipe(
-        map((res) =>
-          res.results.map((question) => (question.given_answer = ''))
-        )
-      );
+      .pipe(map((res) => res.results.map((question) => question)));
   }
 }

@@ -11,7 +11,7 @@ import { Question } from '../../../../interfaces/question';
 })
 export class QuizRowComponent implements OnInit {
   @Input() question!: Question;
-  @Output() answer: EventEmitter<Event> = new EventEmitter<Event>();
+  @Output() answer: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {}
 

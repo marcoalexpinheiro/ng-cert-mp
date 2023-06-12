@@ -7,6 +7,7 @@ import {
   catchError,
   tap,
   map,
+  filter,
   shareReplay,
   take,
 } from 'rxjs/operators';
@@ -43,6 +44,24 @@ export class QuestionsStore {
         this._questions.next(questions);
       }
     });
+  }
+
+  public getNumberOfQuestionsAnswered(): Observable<number> {
+    return this._questions.asObservable().pipe(
+      map((questions: Question[]) =>
+        questions.filter((q: Question) => q.given_answer !== undefined)
+      ),
+      map((answeredQuestions: Question[]) => answeredQuestions.length)
+    );
+  }
+
+  public getNumberOfCorrectQuestionsAnswered(): Observable<number> {
+    return this._questions.asObservable().pipe(
+      map((questions: Question[]) =>
+        questions.filter((q: Question) => q.correct_answer === q.given_answer)
+      ),
+      map((answeredQuestions: Question[]) => answeredQuestions.length)
+    );
   }
 
   public getQuestions(): Observable<Question[] | null> {

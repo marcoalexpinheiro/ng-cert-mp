@@ -35,6 +35,16 @@ export class QuestionsStore {
       });
   }
 
+  public updateQuestion(question: Question): void {
+    let questions = this._questions.value;
+    questions.forEach((q, index) => {
+      if (q.question === question.question) {
+        questions[index] = question;
+        this._questions.next(questions);
+      }
+    });
+  }
+
   public getQuestions(): Observable<Question[] | null> {
     if (!this._questions.value) this.setupQuizQuestions();
     return this._questions.asObservable().pipe(shareReplay(1));

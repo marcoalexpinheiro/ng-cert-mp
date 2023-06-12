@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Question } from '../../interfaces/question';
-import { QuestionsStore } from '../../store/questions.store';
+import { QuestionsStore } from '../../stores/questions.store';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -23,6 +23,6 @@ export class QuizComponent implements OnInit {
     this.questions$ = this._questionsStore.getQuestions();
   }
   public setAnswer($event): void {
-    console.log($event);
+    this._questionsStore.updateQuestion($event);
   }
 }

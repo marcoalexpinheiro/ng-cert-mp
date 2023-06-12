@@ -15,9 +15,11 @@ export class QuizRowComponent implements OnInit {
 
   constructor() {}
 
+  public checkAnswers = true;
+
   ngOnInit() {}
 
-  public giveAnswer(option: string): void {
+  public setNewAnswer(option: string): void {
     this.question.given_answer = option;
     this.answer.emit(this.question);
   }

@@ -4,7 +4,19 @@
     <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
       <mat-button-toggle
         *ngFor="let option of question.incorrect_answers"
-        (click)="giveAnswer(option)"
+        (click)="setNewAnswer(option)"
+        [class]="
+          question.correct_answer === question.given_answer &&
+          status === checkAnswers
+            ? 'correct'
+            : ''
+        "
+        [class]="
+          question.correct_answer !== question.given_answer &&
+          status === checkAnswers
+            ? 'incorrect'
+            : ''
+        "
         value="{{ option }}"
         >{{ option }}</mat-button-toggle
       >

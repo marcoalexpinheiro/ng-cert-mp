@@ -16,6 +16,7 @@ import { QuizRowComponent } from './components/quiz/components/quiz-row/quiz-row
 import { SharedService } from './services/shared.service';
 import { AppService } from './services/app.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AppStore } from './store/app.store';
 
 @NgModule({
   imports: [
@@ -35,7 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     QuizRowComponent,
   ],
-  providers: [SharedService, AppService],
+  providers: [SharedService, AppService, AppStore],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -14,6 +14,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { QuizRowComponent } from './components/quiz/components/quiz-row/quiz-row.component';
 import { SharedService } from './services/shared.service';
+import { SessionStorageService } from './services/session-storage.service';
+
 import { AppService } from './services/app.service';
 import { HttpClientModule } from '@angular/common/http';
 import { QuestionsStore } from './stores/questions.store';
@@ -36,11 +38,12 @@ import { CategoriesStore } from './stores/categories.store';
     HomeComponent,
     FooterComponent,
     HeaderComponent,
-    QuizRowComponent
+    QuizRowComponent,
   ],
   providers: [
     FormBuilder,
     SharedService,
+    SessionStorageService,
     AppService,
     QuestionsStore,
     CategoriesStore,

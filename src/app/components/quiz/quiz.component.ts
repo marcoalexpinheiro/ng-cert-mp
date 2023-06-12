@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Question } from 'app/interfaces/question';
+import { Question } from '../../interfaces/question';
+import { QuestionsStore } from '../../store/questions.store';
 import { Observable } from 'rxjs';
-import { EnumDifficulty } from '../../enums/dificulty.enum';
-import { EnumAnswersType } from '../../enums/type.enum';
-import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-quiz',
@@ -16,20 +14,13 @@ export class QuizComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-    private _appService: AppService
-  ) {}
+    private _questionsStore: QuestionsStore
+  ) {
+    //this._questionsStore.setupQuizQuestions();
+  }
 
   ngOnInit() {
-    this._route.paramMap.subscribe((params) => {
-      let id: string = params.get('id');
-    });
-
-    this.questions$ = this._appService.grabQuizFromAPI({
-      category: 12,
-      amount: 5,
-      difficulty: EnumDifficulty.EASY,
-      type: EnumAnswersType.MULTIPLE,
-    });
+    this.questions$ = this._questionsStore.getQuestions();
   }
   public setAnswer($event): void {
     console.log($event);

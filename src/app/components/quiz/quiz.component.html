@@ -2,7 +2,7 @@
   <ng-container *ngFor="let question of questions">
     <app-quiz-row
       [question]="question"
-      (answer)="setAnswer(answer, $event)"
+      (answer)="setAnswer($event)"
     ></app-quiz-row>
   </ng-container>
 </ng-container>

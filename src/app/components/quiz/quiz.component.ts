@@ -31,7 +31,7 @@ export class QuizComponent implements OnInit {
       type: EnumAnswersType.MULTIPLE,
     });
   }
-  public setAnswer(answer, $event): void {
-    console.log(answer);
+  public setAnswer($event): void {
+    console.log($event);
   }
 }

@@ -2,9 +2,19 @@
   <ng-container *ngFor="let question of questions">
     <app-quiz-row
       [question]="question"
+      [checkAnswers]="checkAnswers"
       (answer)="setAnswer($event)"
     ></app-quiz-row>
   </ng-container>
+
+  <button
+    (click)="checkAnswers = !checkAnswers"
+    class="app-button"
+    mat-raised-button
+    color="primary"
+  >
+    SUBMIT {{ checkAnswers }}
+  </button>
 </ng-container>
 
 <ng-template #loading>

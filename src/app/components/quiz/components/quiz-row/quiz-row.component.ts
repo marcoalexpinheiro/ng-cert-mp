@@ -11,11 +11,11 @@ import { Question } from '../../../../interfaces/question';
 })
 export class QuizRowComponent implements OnInit {
   @Input() question!: Question;
+  @Input() checkAnswers: boolean = false;
+
   @Output() answer: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {}
-
-  public checkAnswers = false;
 
   ngOnInit() {}
 

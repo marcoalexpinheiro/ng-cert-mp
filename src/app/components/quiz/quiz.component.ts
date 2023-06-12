@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class QuizComponent implements OnInit {
   public questions$!: Observable<Question[]>;
+  public checkAnswers = false;
 
   constructor(
     private _route: ActivatedRoute,

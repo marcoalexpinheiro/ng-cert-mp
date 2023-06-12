@@ -1,6 +1,8 @@
 .correct {
   background-color: green !important;
+  color: #fff;
 }
 .incorrect {
   background-color: red !important;
+  color: #fff;
 }

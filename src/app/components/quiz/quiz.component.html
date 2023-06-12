@@ -8,15 +8,19 @@
     ></app-quiz-row>
   </ng-container>
 
-  >>{{ numberOfSubmissions$ | async }}<<
+  <span class="score-wrapper" *ngIf="(numberOfSubmissions$ | async) >= 5">
+    You scored {{ numberOfCorrectSubmissions$ | async }} out of
+    {{ numberOfSubmissions$ | async }}
+  </span>
+
   <button
-    *ngIf="(numberOfSubmissions$ | async) >= 5"
+    *ngIf="(numberOfSubmissions$ | async) >= 5 && !checkAnswers"
     (click)="checkAnswers = !checkAnswers"
     class="app-button"
     mat-raised-button
     color="primary"
   >
-    SUBMIT {{ checkAnswers }}
+    SUBMIT
   </button>
 </ng-container>
 

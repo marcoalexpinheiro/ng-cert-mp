@@ -21,6 +21,7 @@ export class QuizComponent implements OnInit {
   public questions$!: Observable<Question[]>;
   public checkAnswers = false;
   public numberOfSubmissions$!: Observable<number>;
+  public numberOfCorrectSubmissions$!: Observable<number>;
 
   constructor(
     private _route: ActivatedRoute,
@@ -30,6 +31,9 @@ export class QuizComponent implements OnInit {
   ngOnInit() {
     this.numberOfSubmissions$ =
       this._questionsStore.getNumberOfQuestionsAnswered();
+
+    this.numberOfCorrectSubmissions$ =
+      this._questionsStore.getNumberOfCorrectQuestionsAnswered();
 
     this.questions$ = this._questionsStore.getQuestions();
 

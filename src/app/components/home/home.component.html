@@ -1,15 +1,15 @@
 <!-- Material Select -->
 <mat-card>
   <mat-card-content>
-    <h2 class="example-h2">Material Select</h2>
+    <h2 class="example-h2">Category</h2>
     <mat-form-field>
       <mat-select
-        placeholder="Favorite game"
-        [(ngModel)]="selectedValue"
-        name="game"
+        id="categorySelect"
+        placeholder="Favorite category game"
+        name="cat"
       >
-        <mat-option *ngFor="let game of games" [value]="game.value">
-          {{ game.viewValue }}
+        <mat-option *ngFor="let cat of cats$ | async" [value]="cat.id">
+          {{ cat.name }}
         </mat-option>
       </mat-select>
     </mat-form-field>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CategoriesStore } from '../../stores/categories.store';
 import { Category } from '../../interfaces/catgory';
 

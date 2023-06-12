@@ -18,8 +18,22 @@ export class AppService {
       (key) => (params = params.append(key, query[key]))
     );
 
-    return this._http
-      .get<any>(API_ENDPOINT, { params })
-      .pipe(map((res) => res.results.map((question) => question)));
+    return this._http.get<any>(API_ENDPOINT, { params }).pipe(
+      map((res) => res.results),
+      map((questions) => {
+        questions.map((question) => {
+          question.incorrect_answers.push(question.correct_answer);
+          question.incorrect_answers = this._shuffle(
+            question.incorrect_answers
+          );
+          return question;
+        });
+        return questions;
+      })
+    );
   }
+
+  private _shuffle = (array: string[]) => {
+    return array.sort(() => Math.random() - 0.5);
+  };
 }

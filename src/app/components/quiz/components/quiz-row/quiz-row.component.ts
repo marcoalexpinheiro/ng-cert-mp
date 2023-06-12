@@ -17,8 +17,7 @@ export class QuizRowComponent implements OnInit {
 
   ngOnInit() {}
 
-  public giveAnswer(answer: string): void {
-    this.question.given_answer = answer;
-    this.answer.emit(this.question);
+  public giveAnswer(option: string): void {
+    this.answer.emit(option);
   }
 }

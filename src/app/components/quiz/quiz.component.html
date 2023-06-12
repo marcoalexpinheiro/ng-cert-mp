@@ -1,4 +1,4 @@
-<ng-container *ngIf="questions$ | async; let questions">
+<ng-container *ngIf="questions$ | async; let questions; else: loading">
   <ng-container *ngFor="let question of questions">
     <app-quiz-row
       [question]="question"
@@ -6,3 +6,20 @@
     ></app-quiz-row>
   </ng-container>
 </ng-container>
+
+<ng-template #loading>
+  <!-- Material Progress Bar -->
+  <mat-card>
+    <mat-card-content>
+      <label>
+        Indeterminate progress-bar
+        <mat-progress-bar
+          class="app-progress"
+          mode="indeterminate"
+          aria-label="Indeterminate progress-bar example"
+        ></mat-progress-bar>
+      </label>
+    </mat-card-content>
+  </mat-card>
+  <!-- /Material Progress Bar -->
+</ng-template>

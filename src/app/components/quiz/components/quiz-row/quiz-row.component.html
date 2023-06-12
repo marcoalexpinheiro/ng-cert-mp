@@ -2,11 +2,12 @@
   <mat-card-content>
     <h4 class="example-h2">{{ question.question }}</h4>
     <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-      <mat-button-toggle (click)="giveAnswer('Bold')" value="bold"
-        >Bold</mat-button-toggle
+      <mat-button-toggle
+        *ngFor="let option of question.incorrect_answers"
+        (click)="giveAnswer(option)"
+        value="{{ option }}"
+        >{{ option }}</mat-button-toggle
       >
-      <mat-button-toggle value="italic">Italic</mat-button-toggle>
-      <mat-button-toggle value="underline">Underline</mat-button-toggle>
     </mat-button-toggle-group>
   </mat-card-content>
 </mat-card>

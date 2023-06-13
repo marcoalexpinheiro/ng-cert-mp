@@ -1,5 +1,6 @@
 <mat-toolbar color="primary">
   <span class="fill-remaining-space"></span>
+
   <span>
     <a
       mat-icon-button
@@ -7,9 +8,10 @@
       [routerLink]="'/'"
       [routerLinkActive]="'is-active'"
     >
-      <mat-icon>home</mat-icon>
+      <img src="https://angular.io/assets/images/logos/angular/angular.svg" />
     </a>
   </span>
+
   <span>
     <a
       mat-icon-button
@@ -17,7 +19,7 @@
       [routerLink]="'/quiz'"
       [routerLinkActive]="'is-active'"
     >
-      <mat-icon>list</mat-icon>
+      <mat-icon>input</mat-icon>
     </a>
   </span>
   <span>
@@ -27,7 +29,7 @@
       [routerLink]="'/quiz/results'"
       [routerLinkActive]="'is-active'"
     >
-      <mat-icon>logout</mat-icon>
+      <mat-icon>help</mat-icon>
     </a>
   </span>
 </mat-toolbar>

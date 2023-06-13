@@ -20,6 +20,8 @@ import { AppService } from './services/app.service';
 import { HttpClientModule } from '@angular/common/http';
 import { QuestionsStore } from './stores/questions.store';
 import { CategoriesStore } from './stores/categories.store';
+import { QuizGuard } from './guards/quiz.guard';
+import { ResultsGuard } from './guards/results.guard';
 
 @NgModule({
   imports: [
@@ -47,6 +49,8 @@ import { CategoriesStore } from './stores/categories.store';
     AppService,
     QuestionsStore,
     CategoriesStore,
+    QuizGuard,
+    ResultsGuard,
   ],
   bootstrap: [AppComponent],
 })

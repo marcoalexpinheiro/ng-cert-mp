@@ -2,6 +2,8 @@ import { RouterModule, Routes } from '@angular/router';
 import * as ROUTING from './assets/constants/routing.constants';
 import { HomeComponent } from './components/home/home.component';
 import { QuizComponent } from './components/quiz/quiz.component';
+import { QuizGuard } from './guards/quiz.guard';
+import { ResultsGuard } from './guards/results.guard';
 
 const routes: Routes = [
   {
@@ -19,12 +21,14 @@ const routes: Routes = [
   {
     path: ROUTING.QUIZ,
     data: { state: 'quiz' },
+    canActivate: [QuizGuard],
     component: QuizComponent,
   },
 
   {
     path: ROUTING.QUIZ + '/' + ROUTING.RESULTS,
     data: { state: 'foo' },
+    canActivate: [ResultsGuard],
     component: QuizComponent,
   },
   {

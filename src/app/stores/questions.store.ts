@@ -39,7 +39,7 @@ export class QuestionsStore {
 
   public updateQuestion(question: Question): void {
     let questions = this._questions.value;
-    questions.forEach((q, index) => {
+    questions?.forEach((q, index) => {
       if (q.question === question.question) {
         questions[index] = question;
         this._questions.next(questions);
@@ -50,18 +50,18 @@ export class QuestionsStore {
   public getNumberOfQuestionsAnswered(): Observable<number> {
     return this._questions.asObservable().pipe(
       map((questions: Question[]) =>
-        questions.filter((q: Question) => q.given_answer !== undefined)
+        questions?.filter((q: Question) => q.given_answer !== undefined)
       ),
-      map((answeredQuestions: Question[]) => answeredQuestions.length ?? 0)
+      map((answeredQuestions: Question[]) => answeredQuestions?.length ?? 0)
     );
   }
 
   public getNumberOfCorrectQuestionsAnswered(): Observable<number> {
     return this._questions.asObservable().pipe(
       map((questions: Question[]) =>
-        questions.filter((q: Question) => q.correct_answer === q.given_answer)
+        questions?.filter((q: Question) => q.correct_answer === q.given_answer)
       ),
-      map((answeredQuestions: Question[]) => answeredQuestions.length ?? 0)
+      map((answeredQuestions: Question[]) => answeredQuestions?.length ?? 0)
     );
   }
 

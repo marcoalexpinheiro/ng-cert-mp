@@ -1,0 +1,23 @@
+
+.redFeedback{
+  background-color: red;
+  color: #fff;
+}
+.yellowFeedback{
+  background-color: yellow;
+  color: #000;
+}
+.greenFeedback{
+  background-color: green;
+  color: #fff;
+}
+.footer-area{
+  display: flex;
+  flex-direction: column;
+  margin: 1em;
+  align-items: center;
+}
+.feedback-wrapper{
+  padding: .5em 10em;
+  margin-bottom: 1em;
+}

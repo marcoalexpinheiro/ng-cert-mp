@@ -10,6 +10,7 @@ import {
   filter,
   shareReplay,
   take,
+  startWith,
 } from 'rxjs/operators';
 import { EnumAnswersType } from '../enums/type.enum';
 import { EnumDifficulty } from '../enums/dificulty.enum';
@@ -51,7 +52,7 @@ export class QuestionsStore {
       map((questions: Question[]) =>
         questions.filter((q: Question) => q.given_answer !== undefined)
       ),
-      map((answeredQuestions: Question[]) => answeredQuestions.length)
+      map((answeredQuestions: Question[]) => answeredQuestions.length ?? 0)
     );
   }
 
@@ -60,7 +61,7 @@ export class QuestionsStore {
       map((questions: Question[]) =>
         questions.filter((q: Question) => q.correct_answer === q.given_answer)
       ),
-      map((answeredQuestions: Question[]) => answeredQuestions.length)
+      map((answeredQuestions: Question[]) => answeredQuestions.length ?? 0)
     );
   }
 

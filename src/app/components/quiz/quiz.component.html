@@ -8,20 +8,42 @@
     ></app-quiz-row>
   </ng-container>
 
-  <span class="score-wrapper" *ngIf="(numberOfSubmissions$ | async) >= 5">
-    You scored {{ numberOfCorrectSubmissions$ | async }} out of
-    {{ numberOfSubmissions$ | async }}
-  </span>
+  <div class="footer-area" *ngIf="(numberOfCorrectSubmissions$ | async) >= 0">
+    <span
+      *ngIf="checkAnswers && (numberOfCorrectSubmissions$ | async) >= 0"
+      class="feedback-wrapper"
+      [ngClass]="{
+        redFeedback: (numberOfCorrectSubmissions$ | async) <= 1,
+        yellowFeedback:
+          (numberOfCorrectSubmissions$ | async) > 2 &&
+          (numberOfCorrectSubmissions$ | async) <= 3,
+        greenFeedback: (numberOfCorrectSubmissions$ | async) >= 4
+      }"
+    >
+      You scored {{ numberOfCorrectSubmissions$ | async }} out of
+      {{ numberOfSubmissions$ | async }}
+    </span>
 
-  <button
-    *ngIf="(numberOfSubmissions$ | async) >= 5 && !checkAnswers"
-    (click)="checkAnswers = !checkAnswers"
-    class="app-button"
-    mat-raised-button
-    color="primary"
-  >
-    SUBMIT
-  </button>
+    <button
+      *ngIf="(numberOfSubmissions$ | async) >= 5 && !checkAnswers"
+      (click)="checkAnswers = !checkAnswers"
+      class="app-button"
+      mat-raised-button
+      color="primary"
+    >
+      SUBMIT
+    </button>
+
+    <button
+      *ngIf="checkAnswers"
+      class="app-button"
+      mat-raised-button
+      color="secondary"
+      (click)="createNewQuizHandler()"
+    >
+      CREATE A NEW QUIZ
+    </button>
+  </div>
 </ng-container>
 
 <ng-template #loading>

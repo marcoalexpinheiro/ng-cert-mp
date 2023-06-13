@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriesStore } from '../../stores/categories.store';
 import { Category } from '../../interfaces/catgory';
 import { EnumDifficulty } from '../../enums/dificulty.enum';
@@ -25,13 +26,18 @@ export class HomeComponent implements OnInit {
   constructor(
     private _categoriesStore: CategoriesStore,
     private _formBuilder: FormBuilder,
-    private _sessionStorageService: SessionStorageService
+    private _sessionStorageService: SessionStorageService,
+    private _router: Router
   ) {}
 
   ngOnInit() {
     this.cats$ = this._categoriesStore.getCategories();
     this.initForm();
     this.initObservales();
+  }
+
+  public startQuizHandler(): void {
+    this._router.navigate(['/quiz']);
   }
 
   private initObservales(): void {

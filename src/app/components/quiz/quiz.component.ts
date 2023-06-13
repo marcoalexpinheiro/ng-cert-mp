@@ -52,4 +52,8 @@ export class QuizComponent implements OnInit {
     this._questionsStore.clear();
     this._router.navigate(['/']);
   }
+
+  public checkAnswersOfQuizHandler(): void {
+    this._router.navigate(['/quiz/results']);
+  }
 }

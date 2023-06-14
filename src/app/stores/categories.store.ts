@@ -18,8 +18,8 @@ import { Category } from '../interfaces/catgory';
 })
 export class CategoriesStore {
   private _categories$ = new BehaviorSubject<Category[] | null>(null);
-  private _currentCategory = new BehaviorSubject<Category | null>(null);
-  private _currentDifficulty = new BehaviorSubject<string | null>(null);
+  private _currentCategory$ = new BehaviorSubject<Category | null>(null);
+  private _currentDifficulty$ = new BehaviorSubject<string | null>(null);
 
   constructor(private _appService: AppService) {}
 
@@ -38,11 +38,11 @@ export class CategoriesStore {
   }
 
   public setCurrentCategory(cat: number): void {
-    this._currentCategory.next(cat);
+    this._currentCategory$.next(cat);
   }
 
   public setCurrentDifficulty(difficulty: string): void {
-    this._currentDifficulty.next(difficulty);
+    this._currentDifficulty$.next(difficulty);
   }
 
   public clear(): void {

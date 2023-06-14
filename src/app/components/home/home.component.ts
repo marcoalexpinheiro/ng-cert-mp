@@ -48,14 +48,12 @@ export class HomeComponent implements OnInit {
     this._subs.push(
       this.categorySelect$.subscribe((data: any) => {
         this._questionsStore.clear();
-        console.log(data);
         this._categoriesStore.setCurrentCategory(data);
       })
     );
     this._subs.push(
       this.difficultySelect$.subscribe((data: any) => {
         this._questionsStore.clear();
-        console.log(data);
         this._categoriesStore.setCurrentDifficulty(data);
       })
     );

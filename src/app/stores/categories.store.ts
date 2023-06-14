@@ -47,11 +47,21 @@ export class CategoriesStore {
 
   public clear(): void {
     this._categories$.next(null);
+    this._currentCategory$.next(null);
+    this._currentDifficulty$.next(null);
   }
 
   public complete(): void {
     this._categories$.next(null);
     this._categories$.complete();
     this._categories$ = new BehaviorSubject<Category[] | null>(null);
+
+    this._currentCategory$.next(null);
+    this._currentCategory$.complete();
+    this._currentCategory$ = new BehaviorSubject<Category[] | null>(null);
+
+    this._currentDifficulty$.next(null);
+    this._currentDifficulty$.complete();
+    this._currentDifficulty$ = new BehaviorSubject<Category[] | null>(null);
   }
 }

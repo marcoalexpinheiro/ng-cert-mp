@@ -6,8 +6,8 @@ import {
 } from '../assets/constants/misc.contants';
 import { Question } from '../interfaces/question';
 import { RequestParam } from '../interfaces/request-param';
-import { Observable, of, EMPTY, throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +22,10 @@ export class AppService {
     );
 
     return this._http.get<any>(API_ENDPOINT, { params }).pipe(
+      catchError((err) => {
+        console.error('handling error within grabQuizFromAPI()', err);
+        return of('');
+      }),
       map((res) => res.results),
       map((questions) => {
         questions.map((question) => {
@@ -35,9 +39,13 @@ export class AppService {
   }
 
   public grabQuizCatsFromAPI(): Observable<any[]> {
-    return this._http
-      .get<any>(API_CAT_ENDPOINT)
-      .pipe(map((res) => res.trivia_categories));
+    return this._http.get<any>(API_CAT_ENDPOINT).pipe(
+      catchError((err) => {
+        console.error('handling error within grabQuizCatsFromAPI()', err);
+        return of('');
+      }),
+      map((res) => res.trivia_categories)
+    );
   }
 
   private shuffle = (array: string[]) => {

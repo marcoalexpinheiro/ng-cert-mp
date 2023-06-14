@@ -1,5 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+import {
+  switchMap,
+  catchError,
+  tap,
+  map,
+  filter,
+  shareReplay,
+  take,
+} from 'rxjs/operators';
+
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CategoriesStore } from '../../stores/categories.store';
@@ -32,6 +42,20 @@ export class HomeComponent implements OnInit {
     this.cats$ = this._categoriesStore.getCategories();
     this.initForm();
     this.initObservales();
+
+    this._categoriesStore
+      .getCurrentDifficulty()
+      .pipe(take(1))
+      .subscribe((difficulty) => {
+        this.setupQuizForm.controls['difficulty'].setValue(difficulty);
+      });
+
+    this._categoriesStore
+      .getCurrentCategory()
+      .pipe(take(1))
+      .subscribe((cat) => {
+        this.setupQuizForm.controls['category'].setValue(cat);
+      });
   }
 
   public startQuizHandler(): void {
@@ -60,7 +84,7 @@ export class HomeComponent implements OnInit {
   }
   private initForm(): void {
     this.setupQuizForm = this._formBuilder.group({
-      category: [10],
+      category: null,
       difficulty: [EnumDifficulty.EASY],
     });
   }

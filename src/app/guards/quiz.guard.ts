@@ -6,23 +6,9 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import {
-  switchMap,
-  catchError,
-  tap,
-  map,
-  filter,
-  shareReplay,
-  withLatestFrom,
-  take,
-} from 'rxjs/operators';
+import { withLatestFrom, take } from 'rxjs/operators';
 import { CategoriesStore } from '../stores/categories.store';
-import {
-  MatSnackBar,
-  MatSnackBarRef,
-  SimpleSnackBar,
-  MatSnackBarConfig,
-} from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 @Injectable()
 export class QuizGuard implements CanActivate {

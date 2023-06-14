@@ -6,6 +6,7 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { NUMBER_OF_QUESTIONS } from '../assets/constants/misc.contants';
 
 @Injectable()
 export class ResultsGuard implements CanActivate {
@@ -21,6 +22,6 @@ export class ResultsGuard implements CanActivate {
       this._nbr = nber;
     });
 
-    return this._nbr === 5 ? true : false;
+    return this._nbr === NUMBER_OF_QUESTIONS ? true : false;
   }
 }

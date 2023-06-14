@@ -5,6 +5,10 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { map, shareReplay, take } from 'rxjs/operators';
 import { EnumAnswersType } from '../enums/type.enum';
 import { EnumDifficulty } from '../enums/dificulty.enum';
+import {
+  NUMBER_OF_QUESTIONS,
+  DEFAULT_CAT,
+} from '../assets/constants/misc.contants';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +18,14 @@ export class QuestionsStore {
 
   constructor(private _appService: AppService) {}
 
-  private setupQuizQuestions(cat: number = 12, amount: number = 5): void {
+  private setupQuizQuestions(
+    cat: number = DEFAULT_CAT,
+    amount: number = NUMBER_OF_QUESTIONS
+  ): void {
     this._appService
       .grabQuizFromAPI({
         category: cat,
-        amount: 5,
+        amount: NUMBER_OF_QUESTIONS,
         difficulty: EnumDifficulty.EASY,
         type: EnumAnswersType.MULTIPLE,
       })

@@ -1,16 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Question } from '../interfaces/question';
 import { AppService } from '../services/app.service';
-import { Observable, of, EMPTY, throwError, BehaviorSubject } from 'rxjs';
-import {
-  switchMap,
-  catchError,
-  tap,
-  map,
-  filter,
-  shareReplay,
-  take,
-} from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { shareReplay, take } from 'rxjs/operators';
 import { Category } from '../interfaces/category';
 
 @Injectable({

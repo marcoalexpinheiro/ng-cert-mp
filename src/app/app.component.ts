@@ -1,6 +1,4 @@
-import { Component, Optional } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
-
+import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

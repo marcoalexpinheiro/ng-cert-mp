@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class ResultsGuard implements CanActivate {
   private _numberOfSubmissions$!: Observable<number>;
+  private _nbr: number = 0;
 
   constructor(private _questionsStore: QuestionsStore) {}
 
@@ -17,10 +18,10 @@ export class ResultsGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    return true;
-
     this._questionsStore.getNumberOfQuestionsAnswered().subscribe((nber) => {
-      return nber === 5 ? true : false;
+      this._nbr = nber;
     });
+
+    return this._nbr === 5 ? true : false;
   }
 }

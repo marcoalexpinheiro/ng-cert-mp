@@ -1,5 +1,5 @@
 <ng-container *ngIf="questions$ | async; let questions; else: loading">
-  <h4 class="center" *ngIf="checkAnswers">RESULTS</h4>
+  <h2 class="center" *ngIf="checkAnswers">RESULTS</h2>
   <ng-container *ngFor="let question of questions">
     <app-quiz-row
       [question]="question"

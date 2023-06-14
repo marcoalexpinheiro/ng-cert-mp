@@ -6,7 +6,7 @@ import {
 } from '../assets/constants/misc.contants';
 import { Question } from '../interfaces/question';
 import { RequestParam } from '../interfaces/request-param';
-import { Observable, throwError, of } from 'rxjs';
+import { Observable, throwError, of, EMPTY } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -24,7 +24,7 @@ export class AppService {
     return this._http.get<any>(API_ENDPOINT, { params }).pipe(
       catchError((err) => {
         console.error('handling error within grabQuizFromAPI()', err);
-        return of('');
+        return of(EMPTY);
       }),
       map((res) => res.results),
       map((questions) => {

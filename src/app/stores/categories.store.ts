@@ -37,8 +37,16 @@ export class CategoriesStore {
     return this._categories$.asObservable().pipe(shareReplay(1));
   }
 
+  public getCurrentCategory(): Observable<Category> {
+    return this._currentCategory$.asObservable();
+  }
+
   public setCurrentCategory(cat: number): void {
     this._currentCategory$.next(cat);
+  }
+
+  public getCurrentDifficulty(): Observable<string> {
+    return this._currentDifficulty$.asObservable();
   }
 
   public setCurrentDifficulty(difficulty: string): void {

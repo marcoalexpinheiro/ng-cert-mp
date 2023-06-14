@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, combineLatest } from 'rxjs';
 import {
   switchMap,
   catchError,
+  startWith,
   tap,
   map,
   filter,
   shareReplay,
+  withLatestFrom,
   take,
 } from 'rxjs/operators';
 
@@ -31,6 +33,8 @@ export class HomeComponent implements OnInit {
   public difficultySelect$!: Observable<string>;
   public setupQuizForm!: FormGroup;
 
+  private _formReactions$!: Observable<any>;
+
   constructor(
     private _categoriesStore: CategoriesStore,
     private _formBuilder: FormBuilder,
@@ -49,54 +53,44 @@ export class HomeComponent implements OnInit {
       difficulty: null,
     });
 
-    this.initFormReactions();
     this.setInitialValuesOfQuizFormSetup();
+    this.initFormReactions();
   }
 
   private setInitialValuesOfQuizFormSetup(): void {
     this._categoriesStore
       .getCurrentDifficulty()
       .pipe(
-        take(1),
-        filter((difficulty) => !!difficulty)
+        withLatestFrom(this._categoriesStore.getCurrentCategory()),
+        filter(([difficulty, category]) => !!difficulty && !!category),
+        take(1)
       )
-      .subscribe((difficulty) => {
+      .subscribe(([difficulty, category]) => {
         this.setupQuizForm.controls['difficulty'].setValue(difficulty);
-      });
-
-    this._categoriesStore
-      .getCurrentCategory()
-      .pipe(
-        take(1),
-        filter((cat) => !!cat)
-      )
-      .subscribe((cat) => {
-        this.setupQuizForm.controls['category'].setValue(cat);
+        this.setupQuizForm.controls['category'].setValue(category);
       });
   }
 
   private initFormReactions(): void {
-    this.categorySelect$ = this.setupQuizForm.controls['category'].valueChanges;
     this._subs.push(
-      this.categorySelect$.subscribe((cat: number) => {
+      combineLatest([
+        this.setupQuizForm.controls['category'].valueChanges.pipe(
+          startWith(this.setupQuizForm.controls['category'].value)
+        ),
+        this.setupQuizForm.controls['difficulty'].valueChanges.pipe(
+          startWith(this.setupQuizForm.controls['difficulty'].value)
+        ),
+      ]).subscribe(([cat, dif]) => {
         this._categoriesStore.setCurrentCategory(cat);
-      })
-    );
-
-    this.difficultySelect$ =
-      this.setupQuizForm.controls['difficulty'].valueChanges;
-    this._subs.push(
-      this.difficultySelect$.subscribe((diff: string) => {
-        this._categoriesStore.setCurrentDifficulty(diff);
+        this._categoriesStore.setCurrentDifficulty(dif);
       })
     );
   }
 
   public startQuizHandler(): void {
     this._questionsStore.clear();
-
-    this._router.navigate(['/quiz']);
     this._questionsStore.getQuestions();
+    this._router.navigate(['/quiz']);
   }
 
   ngOnDestroy(): void {

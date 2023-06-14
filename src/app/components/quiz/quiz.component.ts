@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Question } from '../../interfaces/question';
 import { QuestionsStore } from '../../stores/questions.store';
 import { Observable } from 'rxjs';
+import { CategoriesStore } from '../../stores/categories.store';
 
 @Component({
   selector: 'app-quiz',
@@ -18,7 +19,8 @@ export class QuizComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _questionsStore: QuestionsStore
+    private _questionsStore: QuestionsStore,
+    private _categoriesStore: CategoriesStore
   ) {}
 
   ngOnInit() {
@@ -42,6 +44,7 @@ export class QuizComponent implements OnInit {
 
   public createNewQuizHandler(): void {
     this._questionsStore.clear();
+    this._categoriesStore.clear();
     this._router.navigate(['/']);
   }
 

@@ -13,6 +13,7 @@ import {
   map,
   filter,
   shareReplay,
+  withLatestFrom,
   take,
 } from 'rxjs/operators';
 import { CategoriesStore } from '../stores/categories.store';
@@ -26,6 +27,7 @@ import {
 @Injectable()
 export class QuizGuard implements CanActivate {
   private _nbr: number = 0;
+  private _cat: number = null;
   private _diff: string = null;
 
   constructor(
@@ -41,31 +43,34 @@ export class QuizGuard implements CanActivate {
   ): Observable<boolean> | Promise<boolean> | boolean {
     this._questionsStore
       .getNumberOfQuestionsAnswered()
-      .pipe(take(1))
-      .subscribe((nber) => {
+      .pipe(
+        withLatestFrom(
+          this._categoriesStore.getCurrentDifficulty(),
+          this._categoriesStore.getCurrentCategory()
+        ),
+        take(1)
+      )
+      .subscribe(([nber, difficulty, category]) => {
         this._nbr = nber;
-      });
-
-    this._categoriesStore
-      .getCurrentDifficulty()
-      .pipe(take(1))
-      .subscribe((difficulty) => {
         this._diff = difficulty;
+        this._cat = category;
+
+        if (!this._diff || !this._cat) {
+          const config = new MatSnackBarConfig();
+          config.verticalPosition = 'bottom';
+          config.horizontalPosition = 'center';
+          config.duration = 2000;
+
+          this._zone.run(() => {
+            this._snackbar.open(
+              'Config. the Quiz selecting a Category and difficulty!',
+              'x',
+              config
+            );
+          });
+        }
       });
 
-    if (!(this._nbr >= 0 && this._diff)) {
-      const config = new MatSnackBarConfig();
-      config.verticalPosition = 'bottom';
-      config.horizontalPosition = 'center';
-      this._zone.run(() => {
-        this._snackbar.open(
-          'Please config. the quiz selecting a Category and difficulty!',
-          'x',
-          config
-        );
-      });
-    }
-
-    return this._nbr >= 0 && this._diff ? true : false;
+    return this._nbr > 0 || (this._diff && this._cat) ? true : false;
   }
 }

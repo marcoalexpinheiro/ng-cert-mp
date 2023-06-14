@@ -2,9 +2,16 @@ import { Injectable } from '@angular/core';
 import { Question } from '../interfaces/question';
 import { AppService } from '../services/app.service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { map, shareReplay, take, withLatestFrom, filter } from 'rxjs/operators';
+import {
+  map,
+  shareReplay,
+  take,
+  withLatestFrom,
+  filter,
+  switchMap,
+} from 'rxjs/operators';
 import { EnumAnswersType } from '../enums/type.enum';
-import { EnumDifficulty } from '../enums/dificulty.enum';
+
 import {
   NUMBER_OF_QUESTIONS,
   DEFAULT_CAT,
@@ -22,29 +29,24 @@ export class QuestionsStore {
     private _categoriesStore: CategoriesStore
   ) {}
 
-  private setupQuizQuestions(
-    cat: number = DEFAULT_CAT,
-    amount: number = NUMBER_OF_QUESTIONS
-  ): void {
+  private setupQuizQuestions(): void {
     this._categoriesStore
       .getCurrentDifficulty()
       .pipe(
         withLatestFrom(this._categoriesStore.getCurrentCategory()),
         filter(([difficulty, category]) => !!difficulty && !!category),
-        take(1)
-      )
-      .subscribe(([difficulty, category]) => {
-        this._appService
-          .grabQuizFromAPI({
+        switchMap(([difficulty, category]) =>
+          this._appService.grabQuizFromAPI({
             category: category,
             amount: NUMBER_OF_QUESTIONS,
             difficulty: difficulty,
             type: EnumAnswersType.MULTIPLE,
           })
-          .pipe(take(1))
-          .subscribe((questions) => {
-            this._questions.next(questions);
-          });
+        ),
+        take(1)
+      )
+      .subscribe((questions) => {
+        this._questions.next(questions);
       });
   }
 

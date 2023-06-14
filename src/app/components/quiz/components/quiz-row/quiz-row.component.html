@@ -16,11 +16,7 @@
         value="{{ option }}"
         >{{ option }}
 
-        <mat-icon
-          *ngIf="option === question.given_answer"
-          aria-label="Example icon-button with a heart icon"
-          >check</mat-icon
-        >
+        <mat-icon *ngIf="option === question.given_answer">grade</mat-icon>
       </mat-button-toggle>
     </mat-button-toggle-group>
   </mat-card-content>

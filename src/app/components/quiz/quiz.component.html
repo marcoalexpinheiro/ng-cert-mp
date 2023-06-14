@@ -15,7 +15,7 @@
       [ngClass]="{
         redFeedback: (numberOfCorrectSubmissions$ | async) <= 1,
         yellowFeedback:
-          (numberOfCorrectSubmissions$ | async) > 2 &&
+          (numberOfCorrectSubmissions$ | async) >= 2 &&
           (numberOfCorrectSubmissions$ | async) <= 3,
         greenFeedback: (numberOfCorrectSubmissions$ | async) >= 4
       }"

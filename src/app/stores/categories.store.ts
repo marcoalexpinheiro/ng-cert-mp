@@ -58,10 +58,10 @@ export class CategoriesStore {
 
     this._currentCategory$.next(null);
     this._currentCategory$.complete();
-    this._currentCategory$ = new BehaviorSubject<Category[] | null>(null);
+    this._currentCategory$ = new BehaviorSubject<Category | null>(null);
 
     this._currentDifficulty$.next(null);
     this._currentDifficulty$.complete();
-    this._currentDifficulty$ = new BehaviorSubject<Category[] | null>(null);
+    this._currentDifficulty$ = new BehaviorSubject<string | null>(null);
   }
 }

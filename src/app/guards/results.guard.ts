@@ -9,7 +9,6 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ResultsGuard implements CanActivate {
-  private _numberOfSubmissions$!: Observable<number>;
   private _nbr: number = 0;
 
   constructor(private _questionsStore: QuestionsStore) {}

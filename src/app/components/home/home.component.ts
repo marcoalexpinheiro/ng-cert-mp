@@ -12,8 +12,8 @@ import {
 
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Category } from '../../interfaces/category';
 import { CategoriesStore } from '../../stores/categories.store';
-import { Category } from '../interfaces/category';
 import { EnumDifficulty } from '../../enums/dificulty.enum';
 import { QuestionsStore } from '../../stores/questions.store';
 
@@ -41,15 +41,19 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.cats$ = this._categoriesStore.getCategories();
     this.initForm();
-    this.initObservales();
-    this.initQuizFormSetup();
   }
 
-  public startQuizHandler(): void {
-    this._router.navigate(['/quiz']);
+  private initForm(): void {
+    this.setupQuizForm = this._formBuilder.group({
+      category: null,
+      difficulty: [EnumDifficulty.EASY],
+    });
+
+    this.initFormReactions();
+    this.setInitialValuesOfQuizFormSetup();
   }
 
-  private initQuizFormSetup(): void {
+  private setInitialValuesOfQuizFormSetup(): void {
     this._categoriesStore
       .getCurrentDifficulty()
       .pipe(take(1))
@@ -65,31 +69,27 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  private initObservales(): void {
-    this.categorySelect$ =
-      this.setupQuizForm.controls['category'].valueChanges.pipe();
+  private initFormReactions(): void {
+    this.categorySelect$ = this.setupQuizForm.controls['category'].valueChanges;
     this._subs.push(
-      this.categorySelect$.subscribe((data: any) => {
+      this.categorySelect$.subscribe((cat: number) => {
         this._questionsStore.clear();
-        this._categoriesStore.setCurrentCategory(data);
+        this._categoriesStore.setCurrentCategory(cat);
       })
     );
 
     this.difficultySelect$ =
-      this.setupQuizForm.controls['difficulty'].valueChanges.pipe();
+      this.setupQuizForm.controls['difficulty'].valueChanges;
     this._subs.push(
-      this.difficultySelect$.subscribe((data: any) => {
+      this.difficultySelect$.subscribe((diff: string) => {
         this._questionsStore.clear();
-        this._categoriesStore.setCurrentDifficulty(data);
+        this._categoriesStore.setCurrentDifficulty(diff);
       })
     );
   }
 
-  private initForm(): void {
-    this.setupQuizForm = this._formBuilder.group({
-      category: null,
-      difficulty: [EnumDifficulty.EASY],
-    });
+  public startQuizHandler(): void {
+    this._router.navigate(['/quiz']);
   }
 
   ngOnDestroy(): void {

@@ -89,7 +89,6 @@ export class HomeComponent implements OnInit {
 
   public startQuizHandler(): void {
     this._questionsStore.clear();
-    this._questionsStore.getQuestions();
     this._router.navigate(['/quiz']);
   }
 

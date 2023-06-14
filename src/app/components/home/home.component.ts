@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CategoriesStore } from '../../stores/categories.store';
 import { Category } from '../../interfaces/catgory';
 import { EnumDifficulty } from '../../enums/dificulty.enum';
-import { SessionStorageService } from '../../services/session-storage.service';
 
 @Component({
   selector: 'app-home',
@@ -17,16 +16,13 @@ export class HomeComponent implements OnInit {
 
   public cats$!: Observable<Category[]>;
   public EnumDifficulty = EnumDifficulty;
-
   public categorySelect$!: Observable<number>;
   public difficultySelect$!: Observable<string>;
-
   public setupQuizForm!: FormGroup;
 
   constructor(
     private _categoriesStore: CategoriesStore,
     private _formBuilder: FormBuilder,
-    private _sessionStorageService: SessionStorageService,
     private _router: Router
   ) {}
 

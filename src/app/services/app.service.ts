@@ -7,7 +7,7 @@ import {
 import { Question } from '../../interfaces/question';
 import { RequestParam } from '../../interfaces/request-param';
 import { Observable, of, EMPTY, throwError } from 'rxjs';
-import { switchMap, catchError, tap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',

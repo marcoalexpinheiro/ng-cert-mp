@@ -11,30 +11,23 @@ const routes: Routes = [
     redirectTo: ROUTING.HOME,
     pathMatch: 'full',
   },
-
   {
     path: ROUTING.HOME,
-    data: { state: 'home' },
     component: HomeComponent,
   },
-
   {
     path: ROUTING.QUIZ,
-    data: { state: 'quiz' },
     canActivate: [QuizGuard],
     component: QuizComponent,
   },
-
   {
     path: ROUTING.QUIZ + '/' + ROUTING.RESULTS,
-    data: { state: 'foo' },
     canActivate: [ResultsGuard],
     component: QuizComponent,
   },
   {
     path: '**',
     redirectTo: ROUTING.HOME,
-    data: { state: 'a' },
     pathMatch: 'full',
   },
 ];

@@ -3,14 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Question } from '../../interfaces/question';
 import { QuestionsStore } from '../../stores/questions.store';
 import { Observable } from 'rxjs';
-import {
-  switchMap,
-  catchError,
-  tap,
-  map,
-  shareReplay,
-  take,
-} from 'rxjs/operators';
 
 @Component({
   selector: 'app-quiz',

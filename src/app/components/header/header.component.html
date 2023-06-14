@@ -7,6 +7,7 @@
       matTooltip="Start"
       [routerLink]="'/'"
       [routerLinkActive]="'is-active'"
+      [routerLinkActiveOptions]="{ exact: true }"
     >
       <img src="https://angular.io/assets/images/logos/angular/angular.svg" />
     </a>
@@ -18,8 +19,9 @@
       matTooltip="Play"
       [routerLink]="'/quiz'"
       [routerLinkActive]="'is-active'"
+      [routerLinkActiveOptions]="{ exact: true }"
     >
-      <mat-icon>input</mat-icon>
+      <mat-icon>question_answer</mat-icon>
     </a>
   </span>
   <span>
@@ -28,8 +30,9 @@
       matTooltip="Results"
       [routerLink]="'/quiz/results'"
       [routerLinkActive]="'is-active'"
+      [routerLinkActiveOptions]="{ exact: true }"
     >
-      <mat-icon>help</mat-icon>
+      <mat-icon>feedback</mat-icon>
     </a>
   </span>
 </mat-toolbar>

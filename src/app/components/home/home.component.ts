@@ -56,14 +56,20 @@ export class HomeComponent implements OnInit {
   private setInitialValuesOfQuizFormSetup(): void {
     this._categoriesStore
       .getCurrentDifficulty()
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        filter((difficulty) => !!difficulty)
+      )
       .subscribe((difficulty) => {
         this.setupQuizForm.controls['difficulty'].setValue(difficulty);
       });
 
     this._categoriesStore
       .getCurrentCategory()
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        filter((cat) => !!cat)
+      )
       .subscribe((cat) => {
         this.setupQuizForm.controls['category'].setValue(cat);
       });
@@ -73,7 +79,6 @@ export class HomeComponent implements OnInit {
     this.categorySelect$ = this.setupQuizForm.controls['category'].valueChanges;
     this._subs.push(
       this.categorySelect$.subscribe((cat: number) => {
-        this._questionsStore.clear();
         this._categoriesStore.setCurrentCategory(cat);
       })
     );
@@ -82,16 +87,16 @@ export class HomeComponent implements OnInit {
       this.setupQuizForm.controls['difficulty'].valueChanges;
     this._subs.push(
       this.difficultySelect$.subscribe((diff: string) => {
-        this._questionsStore.clear();
         this._categoriesStore.setCurrentDifficulty(diff);
       })
     );
   }
 
   public startQuizHandler(): void {
-    this._router.navigate(['/quiz']);
+    this._questionsStore.clear();
 
-    this._questionsStore.getQuestions()
+    this._router.navigate(['/quiz']);
+    this._questionsStore.getQuestions();
   }
 
   ngOnDestroy(): void {

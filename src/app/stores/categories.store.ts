@@ -17,7 +17,9 @@ import { Category } from '../interfaces/catgory';
   providedIn: 'root',
 })
 export class CategoriesStore {
-  private _categories = new BehaviorSubject<Category[] | null>(null);
+  private _categories$ = new BehaviorSubject<Category[] | null>(null);
+  private _currentCategory = new BehaviorSubject<Category | null>(null);
+  private _currentDifficulty = new BehaviorSubject<string | null>(null);
 
   constructor(private _appService: AppService) {}
 
@@ -26,22 +28,22 @@ export class CategoriesStore {
       .grabQuizCatsFromAPI()
       .pipe(take(1))
       .subscribe((cats) => {
-        this._categories.next(cats);
+        this._categories$.next(cats);
       });
   }
 
   public getCategories(): Observable<Category[] | null> {
-    if (!this._categories.value) this.setupQuizCategories();
-    return this._categories.asObservable().pipe(shareReplay(1));
+    if (!this._categories$.value) this.setupQuizCategories();
+    return this._categories$.asObservable().pipe(shareReplay(1));
   }
 
   public clear(): void {
-    this._categories.next(null);
+    this._categories$.next(null);
   }
 
   public complete(): void {
-    this._categories.next(null);
-    this._categories.complete();
-    this._categories = new BehaviorSubject<Category[] | null>(null);
+    this._categories$.next(null);
+    this._categories$.complete();
+    this._categories$ = new BehaviorSubject<Category[] | null>(null);
   }
 }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CategoriesStore } from '../../stores/categories.store';
 import { Category } from '../../interfaces/catgory';
 import { EnumDifficulty } from '../../enums/dificulty.enum';
+import { QuestionsStore } from '../../stores/questions.store';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private _categoriesStore: CategoriesStore,
     private _formBuilder: FormBuilder,
-    private _router: Router
+    private _router: Router,
+    private _questionsStore: QuestionsStore
   ) {}
 
   ngOnInit() {
@@ -44,10 +46,14 @@ export class HomeComponent implements OnInit {
       this.setupQuizForm.controls['difficulty'].valueChanges.pipe();
 
     this._subs.push(
-      this.categorySelect$.subscribe((data: any) => console.log(data))
+      this.categorySelect$.subscribe((data: any) =>
+        this._questionsStore.clear()
+      )
     );
     this._subs.push(
-      this.difficultySelect$.subscribe((data: any) => console.log(data))
+      this.difficultySelect$.subscribe((data: any) => {
+        this._questionsStore.clear();
+      })
     );
   }
   private initForm(): void {

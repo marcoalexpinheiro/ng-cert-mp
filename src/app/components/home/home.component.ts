@@ -42,7 +42,14 @@ export class HomeComponent implements OnInit {
     this.cats$ = this._categoriesStore.getCategories();
     this.initForm();
     this.initObservales();
+    this.initQuizFormSetup();
+  }
 
+  public startQuizHandler(): void {
+    this._router.navigate(['/quiz']);
+  }
+
+  private initQuizFormSetup(): void {
     this._categoriesStore
       .getCurrentDifficulty()
       .pipe(take(1))
@@ -58,23 +65,18 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  public startQuizHandler(): void {
-    this._router.navigate(['/quiz']);
-  }
-
   private initObservales(): void {
     this.categorySelect$ =
       this.setupQuizForm.controls['category'].valueChanges.pipe();
-
-    this.difficultySelect$ =
-      this.setupQuizForm.controls['difficulty'].valueChanges.pipe();
-
     this._subs.push(
       this.categorySelect$.subscribe((data: any) => {
         this._questionsStore.clear();
         this._categoriesStore.setCurrentCategory(data);
       })
     );
+
+    this.difficultySelect$ =
+      this.setupQuizForm.controls['difficulty'].valueChanges.pipe();
     this._subs.push(
       this.difficultySelect$.subscribe((data: any) => {
         this._questionsStore.clear();
@@ -82,6 +84,7 @@ export class HomeComponent implements OnInit {
       })
     );
   }
+
   private initForm(): void {
     this.setupQuizForm = this._formBuilder.group({
       category: null,

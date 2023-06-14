@@ -11,7 +11,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 import { EnumAnswersType } from '../enums/type.enum';
-
 import { NUMBER_OF_QUESTIONS } from '../assets/constants/misc.contants';
 import { CategoriesStore } from '../stores/categories.store';
 
@@ -20,6 +19,7 @@ import { CategoriesStore } from '../stores/categories.store';
 })
 export class QuestionsStore {
   private _questions = new BehaviorSubject<Question[] | null>(null);
+  private _questionsBeingChecked = new BehaviorSubject<boolean>(false);
 
   constructor(
     private _appService: AppService,
@@ -80,17 +80,30 @@ export class QuestionsStore {
     return this._questions.asObservable().pipe(shareReplay(1));
   }
 
+  public getQuestionsAreBeingChecked(): Observable<boolean> {
+    return this._questionsBeingChecked.asObservable().pipe(shareReplay(1));
+  }
+
+  public setQuestionsAreBeingChecked(): void {
+    return this._questionsBeingChecked.next(true);
+  }
+
   public update(entity: Question[] | null): void {
     this._questions.next(entity);
   }
 
   public clear(): void {
     this._questions.next(null);
+    this._questionsBeingChecked.next(false);
   }
 
   public complete(): void {
     this._questions.next(null);
     this._questions.complete();
     this._questions = new BehaviorSubject<Question[] | null>(null);
+
+    this._questionsBeingChecked.next(false);
+    this._questionsBeingChecked.complete();
+    this._questionsBeingChecked = new BehaviorSubject<boolean>(false);
   }
 }

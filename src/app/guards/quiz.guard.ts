@@ -15,6 +15,7 @@ export class QuizGuard implements CanActivate {
   private _nbr: number = 0;
   private _cat: number = null;
   private _diff: string = null;
+  private _beingChecked: boolean = false;
 
   constructor(
     private _questionsStore: QuestionsStore,
@@ -32,14 +33,16 @@ export class QuizGuard implements CanActivate {
       .pipe(
         withLatestFrom(
           this._categoriesStore.getCurrentDifficulty(),
-          this._categoriesStore.getCurrentCategory()
+          this._categoriesStore.getCurrentCategory(),
+          this._questionsStore.getQuestionsAreBeingChecked()
         ),
         take(1)
       )
-      .subscribe(([nber, difficulty, category]) => {
+      .subscribe(([nber, difficulty, category, beingChecked]) => {
         this._nbr = nber;
         this._diff = difficulty;
         this._cat = category;
+        this._beingChecked = beingChecked;
 
         if (!this._diff || !this._cat) {
           const config = new MatSnackBarConfig();
@@ -57,6 +60,9 @@ export class QuizGuard implements CanActivate {
         }
       });
 
-    return this._nbr > 0 || (this._diff && this._cat) ? true : false;
+    return (this._nbr > 0 && !this._beingChecked) ||
+      (this._diff && this._cat && !this._beingChecked)
+      ? true
+      : false;
   }
 }

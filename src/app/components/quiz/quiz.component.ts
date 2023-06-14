@@ -49,6 +49,7 @@ export class QuizComponent implements OnInit {
   }
 
   public checkAnswersOfQuizHandler(): void {
+    this._questionsStore.setQuestionsAreBeingChecked();
     this._router.navigate(['/quiz/results']);
   }
 }

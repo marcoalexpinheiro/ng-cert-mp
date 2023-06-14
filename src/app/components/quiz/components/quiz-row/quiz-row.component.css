@@ -1,0 +1,11 @@
+.correct {
+  background-color: green !important;
+  color: #fff;
+}
+.incorrect {
+  background-color: red !important;
+  color: #fff;
+}
+:host{
+  margin: .1em;
+}

@@ -1,10 +1,58 @@
-<mat-card>
-  <mat-card-content>
-    <h4 class="example-h2">Titulo da Pergunta</h4>
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-      <mat-button-toggle value="bold">Bold</mat-button-toggle>
-      <mat-button-toggle value="italic">Italic</mat-button-toggle>
-      <mat-button-toggle value="underline">Underline</mat-button-toggle>
-    </mat-button-toggle-group>
-  </mat-card-content>
-</mat-card>
+<ng-container *ngIf="questions$ | async; let questions; else: loading">
+  <h2 class="center" *ngIf="checkAnswers">RESULTS</h2>
+  <ng-container *ngFor="let question of questions">
+    <app-quiz-row
+      [question]="question"
+      [checkAnswers]="checkAnswers"
+      (answer)="setAnswer($event)"
+    ></app-quiz-row>
+  </ng-container>
+
+  <div class="footer-area" *ngIf="(numberOfCorrectSubmissions$ | async) >= 0">
+    <span
+      *ngIf="checkAnswers && (numberOfCorrectSubmissions$ | async) >= 0"
+      class="feedback-wrapper"
+      [ngClass]="{
+        redFeedback: (numberOfCorrectSubmissions$ | async) <= 1,
+        yellowFeedback:
+          (numberOfCorrectSubmissions$ | async) >= 2 &&
+          (numberOfCorrectSubmissions$ | async) <= 3,
+        greenFeedback: (numberOfCorrectSubmissions$ | async) >= 4
+      }"
+    >
+      You scored {{ numberOfCorrectSubmissions$ | async }} out of
+      {{ numberOfSubmissions$ | async }}
+    </span>
+
+    <button
+      *ngIf="(numberOfSubmissions$ | async) >= 5 && !checkAnswers"
+      class="app-button"
+      mat-raised-button
+      color="primary"
+      (click)="checkAnswersOfQuizHandler()"
+    >
+      SUBMIT
+    </button>
+
+    <button
+      *ngIf="checkAnswers"
+      class="app-button"
+      mat-raised-button
+      color="primary"
+      (click)="createNewQuizHandler()"
+    >
+      CREATE A NEW QUIZ
+    </button>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <mat-card>
+    <mat-card-content>
+      <label>
+        BUILDING YOUR QUIZ, PLEASE WAIT...
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </label>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

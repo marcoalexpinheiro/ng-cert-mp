@@ -1,0 +1,23 @@
+<mat-card>
+  <mat-card-content>
+    <h4 class="example-h2">{{ question.question }}</h4>
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle
+        *ngFor="let option of question.incorrect_answers"
+        (click)="!checkAnswers ? setNewAnswer(option) : ''"
+        [disabled]="checkAnswers"
+        [ngClass]="{
+          correct: question.correct_answer === option && checkAnswers,
+          incorrect:
+            option === question.given_answer &&
+            question.correct_answer !== question.given_answer &&
+            checkAnswers
+        }"
+        value="{{ option }}"
+        >{{ option }}
+
+        <mat-icon *ngIf="option === question.given_answer">grade</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </mat-card-content>
+</mat-card>

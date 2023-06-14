@@ -4,8 +4,8 @@ import {
   API_ENDPOINT,
   API_CAT_ENDPOINT,
 } from '../assets/constants/misc.contants';
-import { Question } from '../../interfaces/question';
-import { RequestParam } from '../../interfaces/request-param';
+import { Question } from '../interfaces/question';
+import { RequestParam } from '../interfaces/request-param';
 import { Observable, of, EMPTY, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 

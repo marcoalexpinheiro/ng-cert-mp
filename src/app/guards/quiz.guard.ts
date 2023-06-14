@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { QuestionsStore } from '../stores/questions.store';
 import {
   CanActivate,
@@ -16,6 +16,12 @@ import {
   take,
 } from 'rxjs/operators';
 import { CategoriesStore } from '../stores/categories.store';
+import {
+  MatSnackBar,
+  MatSnackBarRef,
+  SimpleSnackBar,
+  MatSnackBarConfig,
+} from '@angular/material';
 
 @Injectable()
 export class QuizGuard implements CanActivate {
@@ -24,7 +30,9 @@ export class QuizGuard implements CanActivate {
 
   constructor(
     private _questionsStore: QuestionsStore,
-    private _categoriesStore: CategoriesStore
+    private _categoriesStore: CategoriesStore,
+    private _snackbar: MatSnackBar,
+    private _zone: NgZone
   ) {}
 
   canActivate(
@@ -44,6 +52,19 @@ export class QuizGuard implements CanActivate {
       .subscribe((difficulty) => {
         this._diff = difficulty;
       });
+
+    if (!(this._nbr >= 0 && this._diff)) {
+      const config = new MatSnackBarConfig();
+      config.verticalPosition = 'bottom';
+      config.horizontalPosition = 'center';
+      this._zone.run(() => {
+        this._snackbar.open(
+          'Please config. the quiz selecting a Category and difficulty!',
+          'x',
+          config
+        );
+      });
+    }
 
     return this._nbr >= 0 && this._diff ? true : false;
   }

@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
   private initForm(): void {
     this.setupQuizForm = this._formBuilder.group({
       category: null,
-      difficulty: [EnumDifficulty.EASY],
+      difficulty: null,
     });
 
     this.initFormReactions();

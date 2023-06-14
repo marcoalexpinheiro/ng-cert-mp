@@ -12,10 +12,7 @@ import {
 } from 'rxjs/operators';
 import { EnumAnswersType } from '../enums/type.enum';
 
-import {
-  NUMBER_OF_QUESTIONS,
-  DEFAULT_CAT,
-} from '../assets/constants/misc.contants';
+import { NUMBER_OF_QUESTIONS } from '../assets/constants/misc.contants';
 import { CategoriesStore } from '../stores/categories.store';
 
 @Injectable({

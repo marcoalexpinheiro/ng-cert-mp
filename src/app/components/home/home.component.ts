@@ -3,7 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CategoriesStore } from '../../stores/categories.store';
-import { Category } from '../../interfaces/catgory';
+import { Category } from '../interfaces/category';
 import { EnumDifficulty } from '../../enums/dificulty.enum';
 import { QuestionsStore } from '../../stores/questions.store';
 
@@ -46,13 +46,17 @@ export class HomeComponent implements OnInit {
       this.setupQuizForm.controls['difficulty'].valueChanges.pipe();
 
     this._subs.push(
-      this.categorySelect$.subscribe((data: any) =>
-        this._questionsStore.clear()
-      )
+      this.categorySelect$.subscribe((data: any) => {
+        this._questionsStore.clear();
+        console.log(data);
+        this._categoriesStore.setCurrentCategory(data);
+      })
     );
     this._subs.push(
       this.difficultySelect$.subscribe((data: any) => {
         this._questionsStore.clear();
+        console.log(data);
+        this._categoriesStore.setCurrentDifficulty(data);
       })
     );
   }

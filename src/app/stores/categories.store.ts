@@ -11,14 +11,14 @@ import {
   shareReplay,
   take,
 } from 'rxjs/operators';
-import { Category } from '../interfaces/catgory';
+import { Category } from '../interfaces/category';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoriesStore {
   private _categories$ = new BehaviorSubject<Category[] | null>(null);
-  private _currentCategory$ = new BehaviorSubject<Category | null>(null);
+  private _currentCategory$ = new BehaviorSubject<number | null>(null);
   private _currentDifficulty$ = new BehaviorSubject<string | null>(null);
 
   constructor(private _appService: AppService) {}
@@ -37,7 +37,7 @@ export class CategoriesStore {
     return this._categories$.asObservable().pipe(shareReplay(1));
   }
 
-  public getCurrentCategory(): Observable<Category> {
+  public getCurrentCategory(): Observable<number> {
     return this._currentCategory$.asObservable();
   }
 
@@ -66,7 +66,7 @@ export class CategoriesStore {
 
     this._currentCategory$.next(null);
     this._currentCategory$.complete();
-    this._currentCategory$ = new BehaviorSubject<Category | null>(null);
+    this._currentCategory$ = new BehaviorSubject<number | null>(null);
 
     this._currentDifficulty$.next(null);
     this._currentDifficulty$.complete();

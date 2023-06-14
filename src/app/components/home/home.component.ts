@@ -90,6 +90,8 @@ export class HomeComponent implements OnInit {
 
   public startQuizHandler(): void {
     this._router.navigate(['/quiz']);
+
+    this._questionsStore.getQuestions()
   }
 
   ngOnDestroy(): void {

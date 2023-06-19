@@ -13,7 +13,7 @@ export class QuizRowComponent implements OnInit {
   @Input() question!: Question;
   @Input() checkAnswers: boolean = false;
 
-  @Output() answer: EventEmitter<any> = new EventEmitter<any>();
+  @Output() answer: EventEmitter<Question> = new EventEmitter<Question>();
 
   constructor() {}
 

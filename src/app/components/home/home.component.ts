@@ -1,16 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription, combineLatest } from 'rxjs';
-import {
-  switchMap,
-  catchError,
-  startWith,
-  tap,
-  map,
-  filter,
-  shareReplay,
-  withLatestFrom,
-  take,
-} from 'rxjs/operators';
+import { startWith, filter, withLatestFrom, take } from 'rxjs/operators';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
